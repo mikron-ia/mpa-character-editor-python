@@ -1,0 +1,14 @@
+{
+  "attributes": [
+    {
+      "id": "STR",
+      "name": "Strength",
+      "description": "Ability to lift and damage things"
+    },
+    {
+      "id": "AGI",
+      "name": "Agility",
+      "description": "Ability to catch and hit things"
+    }
+  ]
+}
