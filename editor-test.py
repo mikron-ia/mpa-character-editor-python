@@ -4,4 +4,4 @@ from domain.character import Character
 
 if __name__ == "__main__":
     character = Character('config/basic.json', dict())
-    character.attributes.list_attributes()
+    print(character.attributes)

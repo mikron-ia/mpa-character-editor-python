@@ -15,7 +15,7 @@ class Character:
         config = self.prepare_config_file(config_file_name)
 
         if 'attributes' in config:
-            self.attributes = self.prepare_attributes(config['attributes'])
+            self.attributes = Attributes(config['attributes'])
         else:
             raise ConfigError('Missing attribute configuration')
 
@@ -25,7 +25,3 @@ class Character:
         contents = config_file.read()
         config = json.loads(contents)
         return config
-
-    @staticmethod
-    def prepare_attributes(attribute_config):
-        return Attributes(attribute_config)

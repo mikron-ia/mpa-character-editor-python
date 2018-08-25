@@ -1,14 +1,24 @@
 {
   "attributes": [
     {
-      "id": "STR",
+      "identifier": "STR",
       "name": "Strength",
       "description": "Ability to lift and damage things"
     },
     {
-      "id": "AGI",
+      "identifier": "AGI",
       "name": "Agility",
       "description": "Ability to catch and hit things"
+    }
+  ],
+  "skills": [
+    {
+      "identifier": "Fight",
+      "name": "Fight"
+    },
+    {
+      "identifier": "Else",
+      "name": "Everything else"
     }
   ]
 }

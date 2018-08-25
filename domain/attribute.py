@@ -16,13 +16,15 @@ class Attributes:
     def __init__(self, attribute_config: list):
         attributes = dict()
         for attribute_row in attribute_config:
-            if 'id' in attribute_row and 'name' in attribute_row:
-                attributes[attribute_row['id']] = Attribute(
+            if 'identifier' in attribute_row and 'name' in attribute_row:
+                attributes[attribute_row['identifier']] = Attribute(
                     attribute_row['name'],
                     attribute_row['description'] if 'description' in attribute_row else '[no description]'
                 )
         self.attributes = attributes
 
-    def list_attributes(self):
-        for id, attribute in self.attributes.items():
-            print(attribute)
+    def __str__(self):
+        strings = 'Attribute: level + modifiers = value\n'
+        for identifier, attribute in self.attributes.items():
+            strings += str(attribute) + '\n'
+        return strings
