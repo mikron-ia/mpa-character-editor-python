@@ -15,3 +15,8 @@ class Character:
             self.attributes = Attributes(config['attributes'])
         else:
             raise ConfigError('Missing attribute configuration')
+
+        # @todo Skills
+        # @todo Traits
+        # @todo Powers
+        # @todo Developments
