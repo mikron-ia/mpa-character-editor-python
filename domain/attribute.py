@@ -1,12 +1,11 @@
-class Attribute:
+from domain.component import Component
+
+
+class Attribute(Component):
     def __init__(self, name, description: list):
-        self.name = name
-        self.description = description
+        super().__init__(name, description)
         self.level = 0
         self.modifiers = 0  # @todo Rework it into a list or set of known modifiers
-
-    def get_description_formatted(self):
-        return '\n\n'.join(self.description)
 
     def get_value(self):
         return self.level + self.modifiers
