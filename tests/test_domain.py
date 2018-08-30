@@ -24,6 +24,5 @@ class TestAttribute(unittest.TestCase):
         attribute = Attribute(attribute_name, [])
         self.assertEqual(str(attribute), attribute_name + ': 0 + 0 = 0')
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def go(self):
+        unittest.main()
