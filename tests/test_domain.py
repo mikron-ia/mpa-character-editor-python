@@ -1,6 +1,8 @@
 from domain.component import Component
 from domain.attribute import Attribute
 from domain.attribute import Attributes
+from domain.skill import Skill
+from domain.skill import Skills
 
 import unittest
 
@@ -49,3 +51,26 @@ class TestAttributes(TestBase):
         list_of_attributes = [{'wromng': 'STR', 'name': 'Strength'}]
         attributes = Attributes(list_of_attributes)
         self.assertEqual({}, attributes.attributes)
+
+
+class TestSkill(TestBase):
+    def test_skill_string_conversion(self):
+        skill_name = 'Strength'
+        skill = Skill(skill_name, [])
+        self.assertEqual(str(skill), skill_name + ': 0 + 0 = 0')
+
+
+class TestSkills(TestBase):
+    def test_empty_str(self):
+        skills = Skills([])
+        self.assertEqual('Skill: level + modifiers = value\n', str(skills))
+
+    def test_simple_skill_str(self):
+        list_of_skills = [{'identifier': 'Fight', 'name': 'Fight'}]
+        skills = Skills(list_of_skills)
+        self.assertEqual('Skill: level + modifiers = value\nFight: 0 + 0 = 0\n', str(skills))
+
+    def test_incorrect_skill_str(self):
+        list_of_attributes = [{'wrong': 'Fight', 'name': 'fight'}]
+        skills = Skills(list_of_attributes)
+        self.assertEqual({}, skills.skills)
