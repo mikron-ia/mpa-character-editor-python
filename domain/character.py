@@ -1,4 +1,5 @@
 from domain.attribute import Attributes
+from domain.skill import Skills
 from domain.errors import *
 
 
@@ -16,7 +17,11 @@ class Character:
         else:
             raise ConfigError('Missing attribute configuration')
 
-        # @todo Skills
+        if 'skills' in config:
+            self.skills = Skills(config['skills'])
+        else:
+            raise ConfigError('Missing skill configuration')
+
         # @todo Traits
         # @todo Powers
         # @todo Developments

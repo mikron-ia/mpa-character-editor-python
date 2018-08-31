@@ -15,7 +15,7 @@ class Skill(Component):
         return self.name + ': ' \
                + str(self.level) + ' + ' \
                + str(self.modifiers) + ' = ' \
-               + str(self.get_value())  # todo add minimums to display
+               + str(self.get_value()) + ' (' + str(self.minimum) + ')'
 
 
 class Skills:
@@ -30,7 +30,7 @@ class Skills:
         self.skills = skills
 
     def __str__(self):
-        strings = 'Skill: level + modifiers = value\n'
+        strings = 'Skill: level + modifiers = value (minimum)\n'
         for identifier, attribute in self.skills.items():
             strings += str(attribute) + '\n'
         return strings
