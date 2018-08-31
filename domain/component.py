@@ -7,4 +7,4 @@ class Component:
         return '\n\n'.join(self.description)
 
     def get_value(self):
-        return '?'
+        raise NotImplementedError

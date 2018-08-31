@@ -1,28 +1,51 @@
+from domain.component import Component
 from domain.attribute import Attribute
+from domain.attribute import Attributes
 
 import unittest
 
 
-class TestAttribute(unittest.TestCase):
-    def test_attribute_name(self):
-        attribute_name = 'Strength'
-        attribute = Attribute(attribute_name, [])
-        self.assertEqual(attribute.name, attribute_name)
+class TestBase(unittest.TestCase):
+    @staticmethod
+    def go():
+        unittest.main()
 
-    def test_attribute_description(self):
-        attribute_description = ['Alpha', 'Beta']
-        attribute = Attribute('Strength', attribute_description)
-        self.assertEqual(attribute.description, attribute_description)
 
-    def test_attribute_description_concatenation(self):
-        attribute_description = ['Alpha', 'Beta']
-        attribute = Attribute('Strength', attribute_description)
-        self.assertEqual(attribute.get_description_formatted(), 'Alpha\n\nBeta')
+class TestComponent(TestBase):
+    def test__name(self):
+        name = 'Strength'
+        component = Component(name, [])
+        self.assertEqual(component.name, name)
 
+    def test__description(self):
+        description = ['Alpha', 'Beta']
+        component = Component('Strength', description)
+        self.assertEqual(component.description, description)
+
+    def test__description_concatenation(self):
+        description = ['Alpha', 'Beta']
+        component = Component('Strength', description)
+        self.assertEqual(component.get_description_formatted(), 'Alpha\n\nBeta')
+
+
+class TestAttribute(TestBase):
     def test_attribute_string_conversion(self):
         attribute_name = 'Strength'
         attribute = Attribute(attribute_name, [])
         self.assertEqual(str(attribute), attribute_name + ': 0 + 0 = 0')
 
-    def go(self):
-        unittest.main()
+
+class TestAttributes(TestBase):
+    def test_empty_str(self):
+        attributes = Attributes([])
+        self.assertEqual('Attribute: level + modifiers = value\n', str(attributes))
+
+    def test_simple_attribute_str(self):
+        list_of_attributes = [{'identifier': 'STR', 'name': 'Strength'}]
+        attributes = Attributes(list_of_attributes)
+        self.assertEqual('Attribute: level + modifiers = value\nStrength: 0 + 0 = 0\n', str(attributes))
+
+    def test_incorrect_attribute_str(self):
+        list_of_attributes = [{'wromng': 'STR', 'name': 'Strength'}]
+        attributes = Attributes(list_of_attributes)
+        self.assertEqual({}, attributes.attributes)
