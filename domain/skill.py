@@ -1,12 +1,10 @@
-from domain.component import Component
+from domain.component import ComponentWithLevel
 
 
-class Skill(Component):
+class Skill(ComponentWithLevel):
     def __init__(self, name, description: list):
         super().__init__(name, description)
-        self.level = 0
-        self.modifiers = 0  # todo Rework it into a list or set of known modifiers
-        self.minimum = 0
+        self.minimum = 0  # todo maybe as modifier?
 
     def get_value(self):
         return max(self.minimum, self.level + self.modifiers)

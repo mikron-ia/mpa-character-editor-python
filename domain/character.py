@@ -21,7 +21,3 @@ class Character:
             self.skills = Skills(config['skills'])
         else:
             raise ConfigError('Missing skill configuration')
-
-        # @todo Traits
-        # @todo Powers
-        # @todo Developments

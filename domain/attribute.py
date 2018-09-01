@@ -1,14 +1,9 @@
-from domain.component import Component
+from domain.component import ComponentWithLevel
 
 
-class Attribute(Component):
+class Attribute(ComponentWithLevel):
     def __init__(self, name, description: list):
         super().__init__(name, description)
-        self.level = 0
-        self.modifiers = 0  # @todo Rework it into a list or set of known modifiers
-
-    def get_value(self):
-        return self.level + self.modifiers
 
     def __str__(self):
         return self.name + ': ' + str(self.level) + ' + ' + str(self.modifiers) + ' = ' + str(self.get_value())

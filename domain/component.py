@@ -8,3 +8,22 @@ class Component:
 
     def get_value(self):
         raise NotImplementedError
+
+
+class ComponentWithLevel(Component):
+    def __init__(self, name, description: list):
+        super().__init__(name, description)
+        self.level = 0
+        self.modifiers = 0  # todo Rework it into a list or set of known modifiers
+
+    def increase(self):
+        self.level += 1
+
+    def decrease(self):
+        self.level -= 1
+
+    def set(self, level):
+        self.level = level
+
+    def get_value(self):
+        return self.level + self.modifiers
