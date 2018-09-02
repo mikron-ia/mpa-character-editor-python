@@ -13,11 +13,11 @@ class Character:
             self.resources = resources
 
         if 'attributes' in config:
-            self.attributes = Attributes(config['attributes'])
+            self.attributes = Attributes.create(config['attributes'])
         else:
             raise ConfigError('Missing attribute configuration')
 
         if 'skills' in config:
-            self.skills = Skills(config['skills'])
+            self.skills = Skills.create(config['skills'])
         else:
             raise ConfigError('Missing skill configuration')

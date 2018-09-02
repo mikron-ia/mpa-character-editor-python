@@ -12,15 +12,15 @@ class TestAttribute(TestBase):
 
 class TestAttributes(TestBase):
     def test_empty_str(self):
-        attributes = Attributes([])
+        attributes = Attributes.create([])
         self.assertEqual('Attribute: level + modifiers = value\n', str(attributes))
 
     def test_simple_attribute_str(self):
         list_of_attributes = [{'identifier': 'STR', 'name': 'Strength'}]
-        attributes = Attributes(list_of_attributes)
+        attributes = Attributes.create(list_of_attributes)
         self.assertEqual('Attribute: level + modifiers = value\nStrength: 0 + 0 = 0\n', str(attributes))
 
     def test_incorrect_attribute_str(self):
         list_of_attributes = [{'wromng': 'STR', 'name': 'Strength'}]
-        attributes = Attributes(list_of_attributes)
+        attributes = Attributes.create(list_of_attributes)
         self.assertEqual({}, attributes.attributes)

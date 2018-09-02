@@ -10,14 +10,7 @@ class Attribute(ComponentWithLevel):
 
 
 class Attributes:
-    def __init__(self, attribute_config: list):
-        attributes = dict()
-        for attribute_row in attribute_config:
-            if 'identifier' in attribute_row and 'name' in attribute_row:
-                attributes[attribute_row['identifier']] = Attribute(
-                    attribute_row['name'],
-                    attribute_row['description'] if 'description' in attribute_row else '[no description]'
-                )
+    def __init__(self, attributes: dict):
         self.attributes = attributes
 
     def __str__(self):
@@ -25,3 +18,14 @@ class Attributes:
         for identifier, attribute in self.attributes.items():
             strings += str(attribute) + '\n'
         return strings
+
+    @staticmethod
+    def create(config: list):
+        attributes = dict()
+        for attribute_row in config:
+            if 'identifier' in attribute_row and 'name' in attribute_row:
+                attributes[attribute_row['identifier']] = Attribute(
+                    attribute_row['name'],
+                    attribute_row['description'] if 'description' in attribute_row else '[no description]'
+                )
+        return Attributes(attributes)

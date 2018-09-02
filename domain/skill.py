@@ -17,14 +17,7 @@ class Skill(ComponentWithLevel):
 
 
 class Skills:
-    def __init__(self, skill_config: list):
-        skills = dict()
-        for skill_row in skill_config:
-            if 'identifier' in skill_row and 'name' in skill_row:
-                skills[skill_row['identifier']] = Skill(
-                    skill_row['name'],
-                    skill_row['description'] if 'description' in skill_row else '[no description]'
-                )
+    def __init__(self, skills: dict):
         self.skills = skills
 
     def __str__(self):
@@ -32,3 +25,14 @@ class Skills:
         for identifier, attribute in self.skills.items():
             strings += str(attribute) + '\n'
         return strings
+
+    @staticmethod
+    def create(config: list):
+        skills = dict()
+        for skill_row in config:
+            if 'identifier' in skill_row and 'name' in skill_row:
+                skills[skill_row['identifier']] = Skill(
+                    skill_row['name'],
+                    skill_row['description'] if 'description' in skill_row else '[no description]'
+                )
+        return Skills(skills)
