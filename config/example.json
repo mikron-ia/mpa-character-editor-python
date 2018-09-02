@@ -14,11 +14,20 @@
   "skills": [
     {
       "identifier": "Fight",
-      "name": "Fight"
+      "name": "Fight",
+      "description": [
+        "Ability to hit things"
+      ]
     },
     {
       "identifier": "Else",
-      "name": "Everything else"
+      "name": "Everything else",
+      "description": [
+        "Ability to do everything except hitting things"
+      ]
     }
-  ]
+  ],
+  "traits": [],
+  "powers": [],
+  "developments": []
 }
