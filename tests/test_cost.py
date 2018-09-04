@@ -6,14 +6,23 @@ class TestCost(TestBase):
     def test_constant(self):
         self.assertEqual([1, 1, 1, 1, 1], Cost.generate_progress_constant(5))
 
-    def test_linear(self):
+    def test_linear_simple(self):
         self.assertEqual([1, 2, 3, 4, 5], Cost.generate_progress_linear(5))
 
-    def test_quadratic(self):
+    def test_linear_complex(self):
+        self.assertEqual([10, 11, 12, 13, 14], Cost.generate_progress_linear(5, 10))
+
+    def test_quadratic_simple(self):
         self.assertEqual([1, 4, 9, 16, 25], Cost.generate_progress_quadratic(5))
 
-    def test_fibonacci(self):
+    def test_quadratic_complex(self):
+        self.assertEqual([9, 16, 25, 36, 49], Cost.generate_progress_quadratic(5, 3))
+
+    def test_fibonacci_simple(self):
         self.assertEqual([1, 2, 3, 5, 8], Cost.generate_progress_fibonacci(5))
+
+    def test_fibonacci_complex(self):
+        self.assertEqual([3, 5, 8, 13, 21], Cost.generate_progress_fibonacci(5, 3))
 
     def test_sum_creation_standard(self):
         progress = [1, 2, 3, 4, 5, 6, 7]
@@ -38,4 +47,4 @@ class TestCost(TestBase):
     def test_adjust(self):
         progress = [1, 2, 3, 4, 5, 6, 7]
         result = [10, 20, 30, 40, 50, 60, 70]
-        self.assertEqual(result, Cost.adjust(progress, 10))
+        self.assertEqual(result, Cost.apply_multiplier(progress, 10))
