@@ -1,43 +1,32 @@
 class Cost:
-    def __init__(self, chosen: str, limit: int):
-        self.of_level = {
+    def __init__(self, chosen: str, limit: int, multiplier: int = 1):
+        self.of_level = Cost.adjust({
             'constant': Cost.generate_progress_constant(limit),
             'linear': Cost.generate_progress_linear(limit),
             'quadratic': Cost.generate_progress_quadratic(limit),
             'fibonacci': Cost.generate_progress_fibonacci(limit)
-        }.get(chosen, Cost.generate_progress_linear(limit))
+        }.get(chosen, Cost.generate_progress_linear(limit)), multiplier)
         self.total_level = Cost.create_cost_by_level(self.of_level)
 
     @staticmethod
     def generate_progress_constant(limit: int) -> list:
-        progress = []
-        for i in range(1, limit + 1):
-            progress.append(1)
-        return progress
+        return [1 for i in range(1, limit + 1)]
 
     @staticmethod
     def generate_progress_linear(limit: int) -> list:
-        progress = []
-        for i in range(1, limit + 1):
-            progress.append(i)
-        return progress
+        return [i for i in range(1, limit + 1)]
 
     @staticmethod
     def generate_progress_quadratic(limit: int) -> list:
-        progress = []
-        for i in range(1, limit + 1):
-            progress.append(pow(i, 2))
-        return progress
+        return [pow(i, 2) for i in range(1, limit + 1)]
 
     @staticmethod
     def generate_progress_fibonacci(limit: int) -> list:
         progress = []
-        previous_value = 1
-        current_value = 2
+        previous,current = 1,2
         for i in range(1, limit + 1):
-            progress.append(previous_value)
-            previous_value = current_value
-            current_value += i
+            progress.append(previous)
+            previous,current = current,previous + current
         return progress
 
     @staticmethod
@@ -48,3 +37,7 @@ class Cost:
             current_value += value
             cost.append(current_value)
         return cost
+
+    @staticmethod
+    def adjust(progress: list, multiplier: int) -> list:
+        return [value * multiplier for value in progress]
