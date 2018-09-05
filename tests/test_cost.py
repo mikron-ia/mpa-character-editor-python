@@ -1,5 +1,5 @@
 from tests.test_domain import TestBase
-from domain.cost import Cost
+from domain.cost import *
 
 
 class TestCost(TestBase):
@@ -35,21 +35,21 @@ class TestCost(TestBase):
         self.assertEqual(result, Cost.create_cost_by_level(progress))
 
     def test_object_creation_simple(self):
-        cost = Cost('linear', 5)
+        cost = Cost('linear', CostUnit('SP'), limit=5)
         self.assertEqual([1, 2, 3, 4, 5], cost.of_level)
         self.assertEqual([1, 3, 6, 10, 15], cost.total_level)
 
     def test_object_creation_with_multiplication(self):
-        cost = Cost('linear', 5, multiplier=10)
+        cost = Cost('linear', CostUnit('SP'), limit=5, multiplier=10)
         self.assertEqual([10, 20, 30, 40, 50], cost.of_level)
         self.assertEqual([10, 30, 60, 100, 150], cost.total_level)
 
     def test_object_creation_with_moved_start(self):
-        cost = Cost('linear', 5, start=3)
+        cost = Cost('linear', CostUnit('SP'), limit=5, start=3)
         self.assertEqual([3, 4, 5, 6, 7], cost.of_level)
         self.assertEqual([3, 7, 12, 18, 25], cost.total_level)
 
-    def test_adjust(self):
+    def test_multiplier_application(self):
         progress = [1, 2, 3, 4, 5, 6, 7]
         result = [10, 20, 30, 40, 50, 60, 70]
         self.assertEqual(result, Cost.apply_multiplier(progress, 10))
