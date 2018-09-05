@@ -1,11 +1,11 @@
 class Cost:
-    def __init__(self, chosen: str, limit: int, multiplier: int = 1):
+    def __init__(self, chosen: str, limit: int, multiplier: int = 1, start: int = 1):
         self.of_level = Cost.apply_multiplier({
-                                        'constant': Cost.generate_progress_constant(limit),
-                                        'linear': Cost.generate_progress_linear(limit),
-                                        'quadratic': Cost.generate_progress_quadratic(limit),
-                                        'fibonacci': Cost.generate_progress_fibonacci(limit)
-                                    }.get(chosen, Cost.generate_progress_linear(limit)), multiplier)
+                                                  'constant': Cost.generate_progress_constant(limit, start),
+                                                  'linear': Cost.generate_progress_linear(limit, start),
+                                                  'quadratic': Cost.generate_progress_quadratic(limit, start),
+                                                  'fibonacci': Cost.generate_progress_fibonacci(limit, start)
+                                              }.get(chosen, Cost.generate_progress_linear(limit, start)), multiplier)
         self.total_level = Cost.create_cost_by_level(self.of_level)
 
     @staticmethod
