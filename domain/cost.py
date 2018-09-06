@@ -2,22 +2,54 @@ from domain.errors import IncorrectValue
 
 
 class CostUnit:  # Experimental class, not sure whether it will stay
-    allowed_values = (
-        'AP',  # Attribute Points
-        'SP',  # Skill Points
-        'TP',  # Trait Points
-        'POW',  # Power
-        'DEV',  # Development
-    )
+    unit = None  # None for the base class
 
-    def __init__(self, unit: str):
-        if unit in self.allowed_values:
-            self.unit = unit
-        else:
-            raise IncorrectValue
+    allowed_values = {  # More to be added as options and complexity grow
+        'AP': 'Attribute Point',  # Attribute Points
+        'SP': 'Skill Point',  # Skill Points
+        'TP': 'Trait Point',  # Trait Points
+        'POW': 'Power Point',  # Power
+        'DEV': 'Development',  # Development
+    }
 
     def __str__(self):
-        return self.unit
+        raise NotImplemented
+
+    def __eq__(self, o) -> bool:
+        return type(self) == type(o) and self.unit == o.unit
+
+    @staticmethod
+    def create(unit: str):
+        if unit not in CostUnit.allowed_values.keys():
+            raise IncorrectValue
+        else:
+            return {
+                'AP': CharacterPointAttribute(),
+                'SP': CharacterPointSkill(),
+                'TP': CharacterPointTrait(),
+                'POW': CharacterPointPower(),
+                'DEV': CharacterPointDevelopment(),
+            }.get(unit, None)
+
+
+class CharacterPointAttribute(CostUnit):
+    unit = 'AP'
+
+
+class CharacterPointSkill(CostUnit):
+    unit = 'SP'
+
+
+class CharacterPointTrait(CostUnit):
+    unit = 'TP'
+
+
+class CharacterPointPower(CostUnit):
+    unit = 'POW'
+
+
+class CharacterPointDevelopment(CostUnit):
+    unit = 'DEV'
 
 
 class Cost:
@@ -34,6 +66,15 @@ class Cost:
 
     def __str__(self):
         return str(self.value) + ' ' + str(self.unit)
+
+    def __eq__(self, o) -> bool:
+        return type(self) == type(o) and self.unit == o.unit and self.value == o.value
+
+    def __coerce__(self, other):
+        if type(self) != type(other) or self.unit != other.unit:
+            return None
+        else:
+            return self, other
 
     @staticmethod
     def generate_progress_constant(limit: int, start: int = 1) -> list:
