@@ -21,16 +21,22 @@ class CostUnit:  # Experimental class, not sure whether it will stay
 
     @staticmethod
     def create(unit: str):
-        if unit not in CostUnit.allowed_values.keys():
+        unit_normalized = unit.upper()
+        if unit_normalized not in CostUnit.allowed_values.keys():
             raise IncorrectValue
         else:
             return {
+                'P': CharacterPoint(),
                 'AP': CharacterPointAttribute(),
                 'SP': CharacterPointSkill(),
                 'TP': CharacterPointTrait(),
                 'POW': CharacterPointPower(),
                 'DEV': CharacterPointDevelopment(),
-            }.get(unit, None)
+            }.get(unit_normalized, None)
+
+
+class CharacterPoint(CostUnit):
+    unit = 'P'
 
 
 class CharacterPointAttribute(CostUnit):
@@ -113,12 +119,12 @@ class Cost:
         return [value * multiplier for value in progress]
 
     @staticmethod
-    def create(config: list) -> dict:
+    def create(config: dict) -> dict:
         costs = dict()
-        for key, row in config:
+        for key, row in config.items():
             costs[key] = Cost(
                 row['progression'] if 'progression' in row else 'linear',
-                CostUnit.create(row['unit']) if 'unit' in row else CostUnit('P'),
+                CostUnit.create(row['unit']) if 'unit' in row else CostUnit.create('P'),
                 int(row['limit']) if 'limit' in row else 10,
                 int(row['multiplier']) if 'multiplier' in row else 1,
                 int(row['start']) if 'start' in row else 1

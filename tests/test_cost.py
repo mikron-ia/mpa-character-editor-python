@@ -1,6 +1,5 @@
 from tests.test_domain import TestBase
 from domain.cost import *
-from domain.errors import *
 
 
 class TestCost(TestBase):
@@ -71,5 +70,34 @@ class TestCost(TestBase):
         comparison = Cost('linear', CharacterPointSkill())
         self.assertFalse(original == comparison)
 
-    def test_cost_creation_skill(self):
+    def test_cost_creation_skill_standard(self):
         self.assertEqual(type(CharacterPointSkill()), type(CostUnit.create('SP')))
+
+    def test_cost_creation_skill_lowercase(self):
+        self.assertEqual(type(CharacterPointSkill()), type(CostUnit.create('sp')))
+
+    def test_cost_creation_from_config_empty(self):
+        cost = Cost.create({})
+        self.assertEqual({}, cost)
+
+    def test_cost_creation_from_config_basic(self):
+        config = {'attributes': {}}
+        cost = Cost.create(config)
+        attribute_config = cost['attributes']
+
+        self.assertEqual(CharacterPoint, type(attribute_config.unit))
+        self.assertEqual(attribute_config.of_level, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+    def test_cost_creation_from_config_complex(self):
+        config = {'attributes': {
+            'progression': 'linear',
+            'start': 2,
+            'multiplier': 10,
+            'limit': 4,
+            'unit': 'ap'
+        }}
+        cost = Cost.create(config)
+        attribute_config = cost['attributes']
+
+        self.assertEqual(CharacterPointAttribute, type(attribute_config.unit))
+        self.assertEqual(attribute_config.of_level, [20, 30, 40, 50])
