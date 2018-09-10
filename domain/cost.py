@@ -5,6 +5,7 @@ class CostUnit:  # Experimental class, not sure whether it will stay
     unit = None  # None for the base class
 
     allowed_values = {  # More to be added as options and complexity grow
+        'P': 'Point',  # Points - the basic, generic value
         'AP': 'Attribute Point',  # Attribute Points
         'SP': 'Skill Point',  # Skill Points
         'TP': 'Trait Point',  # Trait Points
@@ -110,3 +111,16 @@ class Cost:
     @staticmethod
     def apply_multiplier(progress: list, multiplier: int) -> list:
         return [value * multiplier for value in progress]
+
+    @staticmethod
+    def create(config: list) -> dict:
+        costs = dict()
+        for key, row in config:
+            costs[key] = Cost(
+                row['progression'] if 'progression' in row else 'linear',
+                CostUnit.create(row['unit']) if 'unit' in row else CostUnit('P'),
+                int(row['limit']) if 'limit' in row else 10,
+                int(row['multiplier']) if 'multiplier' in row else 1,
+                int(row['start']) if 'start' in row else 1
+            )
+        return costs

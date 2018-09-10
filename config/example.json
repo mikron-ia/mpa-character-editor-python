@@ -1,4 +1,27 @@
 {
+  "cost": {
+    "attributes": {
+      "progression": "linear",
+      "start": 1,
+      "multiplier": 1,
+      "limit": 8,
+      "unit": "ap"
+    },
+    "skills": {
+      "progression": "fibonacci",
+      "start": 1,
+      "multiplier": 1,
+      "limit": 10,
+      "unit": "sp"
+    },
+    "traits": {
+      "progression": "linear",
+      "start": 1,
+      "multiplier": 1,
+      "limit": 5,
+      "unit": "tp"
+    }
+  },
   "attributes": [
     {
       "identifier": "STR",
