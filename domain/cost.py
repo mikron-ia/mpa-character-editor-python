@@ -4,7 +4,7 @@ from domain.errors import IncorrectValue
 class CostUnit:  # Experimental class, not sure whether it will stay
     unit = None  # None for the base class
 
-    allowed_values = {  # More to be added as options and complexity grow
+    possible_values = {  # More to be added as options and complexity grow
         'P': 'Point',  # Points - the basic, generic value
         'AP': 'Attribute Point',  # Attribute Points
         'SP': 'Skill Point',  # Skill Points
@@ -13,8 +13,14 @@ class CostUnit:  # Experimental class, not sure whether it will stay
         'DEV': 'Development',  # Development
     }
 
+    def get_short_name(self):
+        return self.unit
+
+    def get_long_name(self):
+        return self.possible_values[self.unit]
+
     def __str__(self):
-        raise NotImplemented
+        return self.get_long_name()
 
     def __eq__(self, o) -> bool:
         return type(self) == type(o) and self.unit == o.unit
@@ -22,17 +28,18 @@ class CostUnit:  # Experimental class, not sure whether it will stay
     @staticmethod
     def create(unit: str):
         unit_normalized = unit.upper()
-        if unit_normalized not in CostUnit.allowed_values.keys():
+        unit_class = {
+            'P': CharacterPoint(),
+            'AP': CharacterPointAttribute(),
+            'SP': CharacterPointSkill(),
+            'TP': CharacterPointTrait(),
+            'POW': CharacterPointPower(),
+            'DEV': CharacterPointDevelopment(),
+        }.get(unit_normalized, None)
+        if unit_class is None:
             raise IncorrectValue
         else:
-            return {
-                'P': CharacterPoint(),
-                'AP': CharacterPointAttribute(),
-                'SP': CharacterPointSkill(),
-                'TP': CharacterPointTrait(),
-                'POW': CharacterPointPower(),
-                'DEV': CharacterPointDevelopment(),
-            }.get(unit_normalized, None)
+            return unit_class
 
 
 class CharacterPoint(CostUnit):

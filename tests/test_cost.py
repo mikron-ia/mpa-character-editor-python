@@ -89,13 +89,16 @@ class TestCost(TestBase):
         self.assertEqual(attribute_config.of_level, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
     def test_cost_creation_from_config_complex(self):
-        config = {'attributes': {
-            'progression': 'linear',
-            'start': 2,
-            'multiplier': 10,
-            'limit': 4,
-            'unit': 'ap'
-        }}
+        config = {
+            'attributes': {
+                'progression': 'linear',
+                'start': 2,
+                'multiplier': 10,
+                'limit': 4,
+                'unit': 'ap'
+            },
+            'skills': {}
+        }
         cost = Cost.create(config)
         attribute_config = cost['attributes']
 
