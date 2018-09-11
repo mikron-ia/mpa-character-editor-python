@@ -1,5 +1,5 @@
 {
-  "cost": {
+  "basic": {
     "attributes": {
       "progression": "linear",
       "start": 1,

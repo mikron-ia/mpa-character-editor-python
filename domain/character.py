@@ -14,10 +14,9 @@ class Character:
 
         if 'attributes' in config:
             self.attributes = Attributes.create(config['attributes'])
-        else:
-            raise ConfigError('Missing attribute configuration')
 
         if 'skills' in config:
             self.skills = Skills.create(config['skills'])
-        else:
-            raise ConfigError('Missing skill configuration')
+
+        if not self.attributes and not self.skills:
+            raise ConfigError('Missing skills or attributes')
