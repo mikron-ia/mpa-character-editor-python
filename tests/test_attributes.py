@@ -21,6 +21,6 @@ class TestAttributes(TestBase):
         self.assertEqual('Attribute: level + modifiers = value\nStrength: 0 + 0 = 0\n', str(attributes))
 
     def test_incorrect_attribute_str(self):
-        list_of_attributes = [{'wromng': 'STR', 'name': 'Strength'}]
+        list_of_attributes = [{'wrong': 'STR', 'name': 'Strength'}]
         attributes = Attributes.create(list_of_attributes)
         self.assertEqual({}, attributes.attributes)

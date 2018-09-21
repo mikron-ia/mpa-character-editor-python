@@ -17,7 +17,7 @@ class TestComponent(TestBase):
     def test_description_concatenation(self):
         description = ['Alpha', 'Beta']
         component = Component('Strength', description)
-        self.assertEqual(component.get_description_formatted(), 'Alpha\n\nBeta')
+        self.assertEqual(component.description_formatted, 'Alpha\n\nBeta')
 
 
 class TestComponentWithLevel(TestBase):
@@ -41,5 +41,5 @@ class TestComponentWithLevel(TestBase):
 
     def test_setter(self):
         component = ComponentWithLevel('Name', [])
-        component.set(2)
+        component.level = 2
         self.assertEqual(component.level, 2)

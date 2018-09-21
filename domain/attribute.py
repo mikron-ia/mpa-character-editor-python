@@ -6,7 +6,7 @@ class Attribute(ComponentWithLevel):
         super().__init__(name, description)
 
     def __str__(self):
-        return self.name + ': ' + str(self.level) + ' + ' + str(self.modifiers) + ' = ' + str(self.get_value())
+        return self.name + ': ' + str(self.level) + ' + ' + str(self.modifiers) + ' = ' + str(self.value)
 
 
 class Attributes:

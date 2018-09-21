@@ -1,13 +1,23 @@
 class Component:
     def __init__(self, name, description: list):
-        self.name = name
-        self.description = description
+        self.__name = name
+        self.__description = description
 
-    def get_description_formatted(self):
-        return '\n\n'.join(self.description)
-
-    def get_value(self):
+    @property
+    def value(self):
         raise NotImplementedError
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def description(self):
+        return self.__description
+
+    @property
+    def description_formatted(self):
+        return '\n\n'.join(self.description)
 
 
 class ComponentWithLevel(Component):
@@ -22,8 +32,6 @@ class ComponentWithLevel(Component):
     def decrease(self):
         self.level -= 1
 
-    def set(self, level):
-        self.level = level
-
-    def get_value(self):
+    @property
+    def value(self):
         return self.level + self.modifiers
