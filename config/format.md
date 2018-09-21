@@ -5,7 +5,9 @@ Config files describe the setting the character is created in. They are written 
 
 ## Sections
 
-*Note:* "conditionally optional entry" in case of Attributes and Skills means that at least one of those sections must be defined. It does not matter which one.
+**Entry** is about whether something needs to be in config file. *Mandatory* and *optional* are obvious, *conditionally optional entry* in case of Attributes and Skills means that at least one of those sections must be defined. It does not matter which one.
+
+**Component** is about whether to load it all, or allow user to select; it is more an implementation suggestion. If something is *mandatory*, then it will be loaded wholesale and every `Character` will have the whole list, always, even if values will be 0. *Optional* means that there will be a list to select from, a pool of options to select from and possibly modify before including in `Character`.
 
 ### Basic
 _This is a mandatory entry_
@@ -31,6 +33,8 @@ This section is responsible for listing all the other sections in a format of a 
 ### Attributes
 _This is a conditionally optional entry_
 
+_This is a mandatory component_
+
 Attributes are major, hard-to-develop dice contributors. They are assumed to be unique: there is no point in having two Intellect scores.
 
 #### Fields
@@ -45,6 +49,8 @@ Attributes are major, hard-to-develop dice contributors. They are assumed to be 
 ### Skills
 _This is a conditionally optional entry_
 
+_This is a mandatory component_
+
 Skills are minor, easy-to-develop dice contributors. They are assumed to be unique.
 
 #### Fields
@@ -57,11 +63,31 @@ Skills are minor, easy-to-develop dice contributors. They are assumed to be uniq
 - `description` - array of `string`, each entry containing a line of description
 
 #### ToDo
-- group skills for Art, Craft, etc. things
+- specialization
+
+### Group skills
+_This is an optional entry_
+
+_This is an optional component_
+
+Group skills are minor, easy-to-develop dice contributors that are not commonly encountered among characters and require a write-in of a subject. They are assumed to be unique as entries, but not as instances. 
+
+#### Fields
+
+#### Mandatory
+- `identifier` - `string` - short code 
+- `name` - `string` - proper name
+
+#### Optional
+- `description` - array of `string`, each entry containing a line of description
+
+#### ToDo
 - specialization
 
 ### Traits
 _This is an optional entry_
+
+_This is an optional component_
 
 Traits are "miscellaneous" things - advantages, disadvantages, and similar details. They are assumed to be unique.
 
@@ -77,6 +103,8 @@ Traits are "miscellaneous" things - advantages, disadvantages, and similar detai
 ### Powers
 _This is an optional entry_
 
+_This is an optional component_
+
 Powers are specific abilities. They are assumed to be unique.
 
 #### Fields
@@ -90,6 +118,8 @@ Powers are specific abilities. They are assumed to be unique.
 
 ### Developments
 _This is an optional entry_
+
+_This is an optional component_
 
 Developments are a list of possible steps for developing the character. They are not supposed to be unique.
 

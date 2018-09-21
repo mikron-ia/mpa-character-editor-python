@@ -50,6 +50,22 @@
       ]
     }
   ],
+  "group_skills": [
+    {
+      "identifier": "Art",
+      "name": "Art",
+      "description": [
+        "Ability to create art or perform"
+      ]
+    },
+    {
+      "identifier": "Craft",
+      "name": "Craft",
+      "description": [
+        "Ability to create and fix things"
+      ]
+    }
+  ],
   "traits": [],
   "powers": [],
   "developments": []
