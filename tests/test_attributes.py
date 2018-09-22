@@ -23,4 +23,10 @@ class TestAttributes(TestBase):
     def test_incorrect_attribute_str(self):
         list_of_attributes = [{'wrong': 'STR', 'name': 'Strength'}]
         attributes = Attributes.create(list_of_attributes)
-        self.assertEqual({}, attributes.attributes)
+        self.assertEqual({}, attributes.content)
+
+    def test_empty_skill_set(self):
+        list_of_attributes = []
+        attributes = Attributes.create(list_of_attributes)
+        self.assertEqual({}, attributes.content)
+

@@ -1,4 +1,5 @@
 from domain.component import ComponentWithLevel
+from domain.component import ComponentContainer
 
 
 class Skill(ComponentWithLevel):
@@ -16,13 +17,14 @@ class Skill(ComponentWithLevel):
                + str(self.get_value()) + ' (' + str(self.minimum) + ')'
 
 
-class Skills:
-    def __init__(self, skills: dict):
-        self.skills = skills
+class Skills(ComponentContainer):
+    def __init__(self, content: dict):
+        super().__init__()
+        self.content = content
 
     def __str__(self):
         strings = 'Skill: level + modifiers = value (minimum)\n'
-        for identifier, attribute in self.skills.items():
+        for identifier, attribute in self.content.items():
             strings += str(attribute) + '\n'
         return strings
 

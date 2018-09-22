@@ -21,6 +21,11 @@ class TestSkills(TestBase):
         self.assertEqual('Skill: level + modifiers = value (minimum)\nFight: 0 + 0 = 0 (0)\n', str(skills))
 
     def test_incorrect_skill_str(self):
-        list_of_attributes = [{'wrong': 'Fight', 'name': 'fight'}]
-        skills = Skills.create(list_of_attributes)
-        self.assertEqual({}, skills.skills)
+        list_of_skills = [{'wrong': 'Fight', 'name': 'fight'}]
+        skills = Skills.create(list_of_skills)
+        self.assertEqual({}, skills.content)
+
+    def test_empty_skill_set(self):
+        list_of_skills = []
+        skills = Skills.create(list_of_skills)
+        self.assertEqual({}, skills.content)

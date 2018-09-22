@@ -35,3 +35,8 @@ class ComponentWithLevel(Component):
     @property
     def value(self):
         return self.level + self.modifiers
+
+
+class ComponentContainer:
+    def __init__(self):
+        self.content = dict()

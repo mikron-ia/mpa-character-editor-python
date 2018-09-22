@@ -1,4 +1,5 @@
 from domain.component import ComponentWithLevel
+from domain.component import ComponentContainer
 
 
 class Attribute(ComponentWithLevel):
@@ -9,13 +10,14 @@ class Attribute(ComponentWithLevel):
         return self.name + ': ' + str(self.level) + ' + ' + str(self.modifiers) + ' = ' + str(self.value)
 
 
-class Attributes:
-    def __init__(self, attributes: dict):
-        self.attributes = attributes
+class Attributes(ComponentContainer):
+    def __init__(self, content: dict):
+        super().__init__()
+        self.content = content
 
     def __str__(self):
         strings = 'Attribute: level + modifiers = value\n'
-        for identifier, attribute in self.attributes.items():
+        for identifier, attribute in self.content.items():
             strings += str(attribute) + '\n'
         return strings
 
