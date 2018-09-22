@@ -8,7 +8,10 @@ class GroupSkill(Skill):
 
     @property
     def name(self):
-        return super().name() + ' (' + self.subject + ')'
+        if self.subject:
+            return super().name + ' (' + self.subject + ')'
+        else:
+            return super().name
 
     @property
     def subject(self):
