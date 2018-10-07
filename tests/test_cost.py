@@ -104,3 +104,7 @@ class TestCost(TestBase):
 
         self.assertEqual(CharacterPointAttribute, type(attribute_config.unit))
         self.assertEqual(attribute_config.of_level, [20, 30, 40, 50])
+
+    def test_cost_creation_wrong_code(self):
+        with self.assertRaises(IncorrectValue):
+            Cost.create({'attributes': {'unit': 'wrong'}})
