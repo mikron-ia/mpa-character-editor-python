@@ -21,4 +21,8 @@ class GroupSkill(Skill):
     def subject(self, subject):
         self.__subject = subject  # todo Devise a system to check whether the name is in use, to avoid doubles
 
-    # todo Write create()
+    @staticmethod
+    def create(name: str, subject: str, description: list):
+        skill = Skill(name, description)
+        skill.subject = subject
+        return skill
