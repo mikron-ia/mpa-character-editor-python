@@ -23,6 +23,6 @@ class GroupSkill(Skill):
 
     @staticmethod
     def create(name: str, subject: str, description: list):
-        skill = Skill(name, description)
+        skill = GroupSkill(name, description)
         skill.subject = subject
         return skill

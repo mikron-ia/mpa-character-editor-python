@@ -16,3 +16,11 @@ class TestGroupSkill(TestBase):
         skill_name = 'Art'
         skill = GroupSkill(skill_name, [])
         self.assertEqual(str(skill), skill_name + ': 0 + 0 = 0 (0)')
+
+    def test_creation(self):
+        skill_name = 'Craft'
+        skill_subject = 'Knitting'
+
+        skill = GroupSkill.create(skill_name, skill_subject, [])
+
+        self.assertEqual(str(skill), skill_name + ' (' + skill_subject + ')' + ': 0 + 0 = 0 (0)')
