@@ -28,6 +28,9 @@ class Skills(ComponentContainer):
             strings += str(attribute) + '\n'
         return strings
 
+    def append(self, name: str, skill: Skill):
+        self.content[name] = skill
+
     @staticmethod
     def create(config: list):
         skills = dict()
@@ -38,3 +41,4 @@ class Skills(ComponentContainer):
                     skill_row['description'] if 'description' in skill_row else '[no description]'
                 )
         return Skills(skills)
+

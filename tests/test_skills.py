@@ -29,3 +29,13 @@ class TestSkills(TestBase):
         list_of_skills = []
         skills = Skills.create(list_of_skills)
         self.assertEqual({}, skills.content)
+
+    def test_append(self):
+        list_of_skills_to_create = [{'identifier': 'Fight', 'name': 'Fight'}]
+        skills = Skills.create(list_of_skills_to_create)
+        skill_to_append = Skill('Flee', [])
+        skills.append('Run', skill_to_append)
+        self.assertEqual(
+            'Skill: level + modifiers = value (minimum)\nFight: 0 + 0 = 0 (0)\nFlee: 0 + 0 = 0 (0)\n',
+            str(skills)
+        )
