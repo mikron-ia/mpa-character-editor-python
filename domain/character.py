@@ -4,23 +4,27 @@ from domain.errors import *
 
 
 class Character:
-    def __init__(self, config, resources):
+    def __init__(self, attributes, skills):
         self.name = ''
+        self.attributes = attributes
+        self.skills = skills
 
+    @staticmethod
+    def create(config, resources):
         if not resources:
-            self.resources = dict()
-        else:
-            self.resources = resources
+            resources = dict()
 
         if 'attributes' in config:
-            self.attributes = Attributes.create(config['attributes'])
+            attributes = Attributes.create(config['attributes'])
         else:
-            self.attributes = None
+            attributes = None
 
         if 'skills' in config:
-            self.skills = Skills.create(config['skills'])
+            skills = Skills.create(config['skills'])
         else:
-            self.attributes = None
+            skills = None
 
-        if not self.attributes and not self.skills:
+        if not attributes and not skills:
             raise ConfigError('Missing skills or attributes')
+
+        return Character(attributes, skills)
