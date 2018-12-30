@@ -2,23 +2,7 @@ import urwid
 import sys
 import json
 from domain.errors import ConfigError
-from domain.character import Character
-from domain.state import State
-
-header_text = [
-    ('title', 'MPA Character Editor')
-]
-
-footer_text = [
-    ('key', '[PgUp]'), ', ', ('key', '[PgDown]'),
-    ': change stage  ',
-    ('key', '[Q]'), ': exit',
-]
-
-
-def exit_on_quit(key):
-    if key in ('q', 'Q'):
-        raise urwid.ExitMainLoop()
+from interface.screen import Screen
 
 
 def prepare_config_file():
@@ -39,20 +23,8 @@ def prepare_config_file():
 
 def main_loop():
     configuration = prepare_config_file()
-    character = Character.create(configuration, dict())
-    state = State(['start', 'attributes', 'skills', 'end'])  # todo: Move to configuration
-
-    content = urwid.Text(('banner', 'Current state: ' + state.current()), align='center')
-    map = urwid.AttrMap(content, 'streak')
-    fill = urwid.Filler(map)
-
-    main_screen = urwid.Frame(
-        urwid.AttrMap(fill, 'body'),
-        urwid.AttrMap(urwid.Text(header_text, 'center'), 'head'),
-        urwid.AttrMap(urwid.Text(footer_text), 'foot')
-    )
-
-    loop = urwid.MainLoop(main_screen, (), handle_mouse=False, unhandled_input=exit_on_quit)
+    main_screen = Screen(configuration)
+    loop = urwid.MainLoop(main_screen, (), handle_mouse=False)
     loop.run()
 
 

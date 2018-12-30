@@ -3,7 +3,7 @@ from domain.errors import ConfigError
 
 class State:
     possible_states = {
-        'start': 'Start',
+        'start': 'Beginning',
         'basics': 'Basic information',
         'attributes': 'Attributes',
         'attributes_create': 'Attributes at creation',
@@ -26,10 +26,18 @@ class State:
             raise ConfigError('Illegal values in screen configuration: ' + ', '.join(illegal_states))
 
         self.states = allowed_states
-        self.state = self.states[0]
+        self.state = 0
+
+    def forward(self):
+        if self.state < len(self.states) - 1:
+            self.state += 1
+
+    def back(self):
+        if self.state > 0:
+            self.state -= 1
 
     def current(self) -> str:
-        return self.possible_states.get(self.state)
+        return self.possible_states.get(self.states[self.state])
 
     def __str__(self) -> str:
         return self.current()
