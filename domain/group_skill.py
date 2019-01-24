@@ -26,3 +26,9 @@ class GroupSkill(Skill):
         skill = GroupSkill(name, description)
         skill.subject = subject
         return skill
+
+    @staticmethod
+    def fields_optional() -> dict:
+        current = super().fields_required()
+        current['subject'] = 'string'
+        return current

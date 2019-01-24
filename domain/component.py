@@ -19,6 +19,16 @@ class Component:
     def description_formatted(self):
         return '\n\n'.join(self.description)
 
+    @staticmethod
+    def fields_required() -> dict:
+        """"""" Provides dictionary of fields & types required in configuration to build this object """""""
+        return {'name': 'string'}
+
+    @staticmethod
+    def fields_optional() -> dict:
+        """"""" Provides dictionary of fields & types that can be added in configuration to build this object """""""
+        return {'description': 'string'}
+
 
 class ComponentWithLevel(Component):
     def __init__(self, name, description: list):

@@ -137,3 +137,8 @@ class Cost:
                 int(row['start']) if 'start' in row else 1
             )
         return costs
+
+
+class CompleteCost:
+    def __init__(self, allowed_costs_at_creation: dict, allowed_costs_at_development: dict) -> None:
+        super().__init__()
